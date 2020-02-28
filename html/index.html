@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tic-Tac-Toe</title>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+    #tictactoe th {
+      border: black solid 1px;
+    }
+
+    #tictactoe th:hover {
+      background-color: lightgray;
+    }
+  </style>
+</head>
+<body>
+  <table id="tictactoe">
+    <tr>
+      <th id="0,0" onclick="piece(0, 0)">___</th>
+      <th id="0,1" onclick="piece(0, 1)">___</th>
+      <th id="0,2" onclick="piece(0, 2)">___</th>
+    </tr>
+    <tr>
+      <th id="1,0" onclick="piece(1, 0)">___</th>
+      <th id="1,1" onclick="piece(1, 1)">___</th>
+      <th id="1,2" onclick="piece(1, 2)">___</th>
+    </tr>
+    <tr>
+      <th id="2,0" onclick="piece(2, 0)">___</th>
+      <th id="2,1" onclick="piece(2, 1)">___</th>
+      <th id="2,2" onclick="piece(2, 2)">___</th>
+    </tr>
+  </table>
+  <p id="info"></p>
+  <script>
+    const info = document.getElementById('info');
+    const X = 'X';
+    const O = 'O';
+
+    let gameEnded = false;
+    let currentPlayer = X;
+    let filled = 0;
+    let board = [
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', '']
+    ];
+
+    function update() {
+      const winner = check();
+      if (winner === false) {
+
+      } else {
+
+      }
+    }
+
+    function start() {
+      update();
+    }
+
+    // checks the diagonals, row, and column of this coordinate
+    function check(x, y) {
+      let checkingFor = board[y][x];
+
+
+      // run this twice
+    }
+
+    function piece(x, y) {
+      if (!gameEnded) {
+        if (board[y][x] === '') {
+          board[y][x] = currentPlayer;
+          document.getElementById(`${x},${y}`).innerText = currentPlayer;
+          filled++;
+          update();
+        }
+      }
+    }
+
+    start();
+
+  </script>
+</body>
+</html>
