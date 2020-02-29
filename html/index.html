@@ -19,19 +19,19 @@
 <body>
   <table id="tictactoe">
     <tr>
-      <th id="0,0" onclick="piece(0, 0)">___</th>
-      <th id="0,1" onclick="piece(0, 1)">___</th>
-      <th id="0,2" onclick="piece(0, 2)">___</th>
+      <th id="0" onclick="piece(0)">___</th>
+      <th id="1" onclick="piece(1)">___</th>
+      <th id="2" onclick="piece(2)">___</th>
     </tr>
     <tr>
-      <th id="1,0" onclick="piece(1, 0)">___</th>
-      <th id="1,1" onclick="piece(1, 1)">___</th>
-      <th id="1,2" onclick="piece(1, 2)">___</th>
+      <th id="3" onclick="piece(3)">___</th>
+      <th id="4" onclick="piece(4)">___</th>
+      <th id="5" onclick="piece(5)">___</th>
     </tr>
     <tr>
-      <th id="2,0" onclick="piece(2, 0)">___</th>
-      <th id="2,1" onclick="piece(2, 1)">___</th>
-      <th id="2,2" onclick="piece(2, 2)">___</th>
+      <th id="6" onclick="piece(6)">___</th>
+      <th id="7" onclick="piece(7)">___</th>
+      <th id="8" onclick="piece(8)">___</th>
     </tr>
   </table>
   <p id="info"></p>
@@ -43,45 +43,61 @@
     let gameEnded = false;
     let currentPlayer = X;
     let filled = 0;
-    let board = [
-      ['', '', ''],
-      ['', '', ''],
-      ['', '', '']
-    ];
+    let board = Array(9).fill('');
 
     function update() {
       const winner = check();
       if (winner === false) {
-
+        if (filled === 9) {
+          info.innerText = "Draw";
+          gameEnded = true;
+        } else {
+          currentPlayer = currentPlayer === X ? O : X;
+          info.innerText = `${currentPlayer}'s turn`;
+        }
       } else {
-
+        info.innerText = `${winner} wins`;
+        gameEnded = true;
       }
     }
 
-    function start() {
-      update();
+    function check() {
+      let checks = [
+        // horizontal checks
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        // vertical checks
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        // diagonal checks
+        [0, 4, 8],
+        [2, 4, 6]
+      ];
+
+      let current = '';
+      for (let i in checks) {
+        current = board[checks[i][0]];
+        if (current === '') continue;
+        if (current === board[checks[i][1]] && current === board[checks[i][2]]) {
+          return current;
+        }
+      }
+
+      return false;
     }
 
-    // checks the diagonals, row, and column of this coordinate
-    function check(x, y) {
-      let checkingFor = board[y][x];
-
-
-      // run this twice
-    }
-
-    function piece(x, y) {
+    function piece(place) {
       if (!gameEnded) {
-        if (board[y][x] === '') {
-          board[y][x] = currentPlayer;
-          document.getElementById(`${x},${y}`).innerText = currentPlayer;
+        if (board[place] === '') {
+          board[place] = currentPlayer;
+          document.getElementById(`${place}`).innerText = currentPlayer;
           filled++;
           update();
         }
       }
     }
-
-    start();
 
   </script>
 </body>
